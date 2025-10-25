@@ -1,0 +1,68 @@
+Memory leaks
+Unclosed MongoDB connections
+redis and closing redis connection
+
+
+2025-08-19T07:49:50.91985027Z ==> Deploying...
+2025-08-19T07:50:09.572102063Z [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  override existing env vars with { override: true })
+2025-08-19T07:50:12.865486027Z [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit)
+2025-08-19T07:50:14.720910461Z Connected to MongoDB successfully!
+2025-08-19T07:50:14.722396736Z Server running on port 3000
+2025-08-19T07:50:21.915967245Z ==> Your service is live 🎉
+2025-08-19T07:50:21.945155062Z ==> 
+2025-08-19T07:50:21.97055984Z ==> ///////////////////////////////////////////////////////////
+2025-08-19T07:50:21.998072967Z ==> 
+2025-08-19T07:50:22.022754555Z ==> Available at your primary URL https://wallet-infrastructure-backend-1.onrender.com
+2025-08-19T07:50:22.048041103Z ==> 
+2025-08-19T07:50:22.07748543Z ==> ///////////////////////////////////////////////////////////
+2025-08-19T07:55:16.928415118Z ==> Detected service running on port 3000
+2025-08-19T07:55:17.058074117Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-08-19T08:01:31.779836429Z ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+2025-08-19T08:01:31.780631027Z     at Object.xForwardedForHeader (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:185:13)
+2025-08-19T08:01:31.780638267Z     at wrappedValidations.<computed> [as xForwardedForHeader] (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:397:22)
+2025-08-19T08:01:31.780642567Z     at Object.keyGenerator (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:658:20)
+2025-08-19T08:01:31.780646067Z     at /opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:710:32
+2025-08-19T08:01:31.780648897Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-19T08:01:31.780651608Z     at async /opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+2025-08-19T08:01:31.780654948Z   code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+2025-08-19T08:01:31.780657768Z   help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+2025-08-19T08:01:31.780660518Z }
+2025-08-19T08:01:41.919068384Z AppError: email or password already exist
+2025-08-19T08:01:41.919103325Z     at /opt/render/project/src/controller/auth-controller.js:86:11
+2025-08-19T08:01:41.919109375Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-19T08:01:41.919114095Z     at async /opt/render/project/src/utils/tryCatch.js:4:6 {
+2025-08-19T08:01:41.919118475Z   statusCode: 404
+2025-08-19T08:01:41.919123185Z }
+2025-08-19T08:27:45.969075107Z ==> Deploying...
+2025-08-19T08:28:00.98115276Z ==> Running 'node index.js'
+2025-08-19T08:28:01.184138344Z [dotenv@17.2.0] injecting env (0) from .env (tip: 🔐 encrypt with dotenvx: https://dotenvx.com)
+2025-08-19T08:28:04.184476198Z [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] })
+2025-08-19T08:28:07.579597979Z [dotenv@17.2.0] injecting env (0) from .env (tip: ⚙️  enable debug logging with { debug: true })
+2025-08-19T08:28:09.54324615Z Connected to MongoDB successfully!
+2025-08-19T08:28:09.545219455Z Server running on port 3000
+2025-08-19T08:28:17.009403646Z ==> Your service is live 🎉
+2025-08-19T08:28:17.035001054Z ==> 
+2025-08-19T08:28:17.058852351Z ==> ///////////////////////////////////////////////////////////
+2025-08-19T08:28:17.081984269Z ==> 
+2025-08-19T08:28:17.105148097Z ==> Available at your primary URL https://wallet-infrastructure-backend-1.onrender.com
+2025-08-19T08:28:17.129325635Z ==> 
+2025-08-19T08:28:17.152575183Z ==> ///////////////////////////////////////////////////////////
+2025-08-19T08:28:17.36901867Z AppError: email or username already exist
+2025-08-19T08:28:17.369050471Z     at /opt/render/project/src/controller/auth-controller.js:87:11
+2025-08-19T08:28:17.369055412Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-19T08:28:17.369059662Z     at async /opt/render/project/src/utils/tryCatch.js:4:6 {
+2025-08-19T08:28:17.369064002Z   statusCode: 404
+2025-08-19T08:28:17.369067503Z }
+2025-08-19T08:33:11.878292952Z ==> Detected service running on port 3000
+2025-08-19T08:33:11.989531932Z ==> Docs on specifying a port: https://render.com/docs/web-services#port-binding
+2025-08-19T08:43:44.661049101Z ValidationError: The 'X-Forwarded-For' header is set but the Express 'trust proxy' setting is false (default). This could indicate a misconfiguration which would prevent express-rate-limit from accurately identifying users. See https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/ for more information.
+2025-08-19T08:43:44.661076563Z     at Object.xForwardedForHeader (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:185:13)
+2025-08-19T08:43:44.661082253Z     at wrappedValidations.<computed> [as xForwardedForHeader] (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:397:22)
+2025-08-19T08:43:44.661087154Z     at Object.keyGenerator (/opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:658:20)
+2025-08-19T08:43:44.661091564Z     at /opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:710:32
+2025-08-19T08:43:44.661095884Z     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+2025-08-19T08:43:44.661100354Z     at async /opt/render/project/src/node_modules/express-rate-limit/dist/index.cjs:691:5 {
+2025-08-19T08:43:44.661105144Z   code: 'ERR_ERL_UNEXPECTED_X_FORWARDED_FOR',
+2025-08-19T08:43:44.661109325Z   help: 'https://express-rate-limit.github.io/ERR_ERL_UNEXPECTED_X_FORWARDED_FOR/'
+2025-08-19T08:43:44.661112185Z }
+2025-08-19T08:43:44.66135965Z successfull requested otp [Function: Date]
