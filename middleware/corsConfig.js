@@ -5,8 +5,8 @@ const configureCors = () =>{
         origin:(origin,callback)=>{
             const allowedOrigins = [
                 "http://localhost:8080",
-                "basesig.xyz", //production domain
-                "app.basesig.xyz"
+                "https://app.basesig.xyz", //production domain
+                "https://basesig.xyz"
             ]
              // ⚠️ In production, remove `!origin` to block requests from tools like Postman
       // Postman and similar tools don’t send an Origin header,
