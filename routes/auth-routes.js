@@ -10,7 +10,7 @@ const acesstokenpiration = 60; //in minutes
 const refreshtokenpiration = 1; //in days
 
 const timeoutOptions = {
-  timeout: 1000, // 5 seconds
+  timeout: TIMEOUT_REQOTP, // 5 seconds
   onTimeout: function (req, res) {
     if (!res.headersSent) {
       res.status(503).json({
@@ -24,7 +24,7 @@ const timeoutOptions = {
   },
 };
 
-router.post("/reqotp",timeout.handler(timeoutOptions),reqOtp)
+router.post("/reqotp",reqOtp)
 // ratelimitingOtp() this is a function that returns a middleware thats why we call ratelimitingOtp() 
 // if it was a middleware we just do ratelimitingOtp like this router.post("/verifyotp",ratelimitingOtp,verifyOtp)
 router.post("/verifyotp",ratelimitingOtp(),verifyOtp)

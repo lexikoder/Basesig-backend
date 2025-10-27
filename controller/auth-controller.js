@@ -7,6 +7,7 @@ const tryCatch = require("../utils/tryCatch");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const AppError = require("../utils/appError");
+// const { TIMEOUT_REQOTP } = require("../config/constants");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 
@@ -21,6 +22,7 @@ const reqOtp = tryCatch(async (req, res) => {
     throw new AppError("missing required field", 400);
   }
   const otp = generateOTP();
+  
   //     // this is stored like this{"myeamail@gmail.com":{
   //   otp: otp,
   //   expiresAt: Date.now() + expirytimeinminutes * 60 * 1000, // 10 minutes
@@ -33,8 +35,12 @@ const reqOtp = tryCatch(async (req, res) => {
     expiresAt: Date.now() + expirytimeinminutes * 60 * 1000, // 10 minutes
     verified: false,
   };
+  
 
   await nodemailerOtp(email, otp, expirytimeinminutes);
+  clearTimeout(timer);
+    // 4️⃣ Don’t double-respond if timeout already fired
+  if (res.headersSent) return;
 
   res.status(200).json({
     success: true,
