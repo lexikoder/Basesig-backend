@@ -14,6 +14,7 @@ otpCache = {};
 const acesstokenpiration = 60; //in minutes
 const refreshtokenpiration = 1; //in days
 
+
 const reqOtp = tryCatch(async (req, res) => {
   const { email } = req.body;
   if (!email) {
@@ -25,6 +26,7 @@ const reqOtp = tryCatch(async (req, res) => {
   //   expiresAt: Date.now() + expirytimeinminutes * 60 * 1000, // 10 minutes
   //   verified: false
   // }}
+  
   const expirytimeinminutes = 10;
   otpCache[email] = {
     otp: otp,
