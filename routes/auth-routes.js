@@ -3,26 +3,27 @@ const {reqOtp,verifyOtp,RegisterUser,LoginUser,refreshAccessToken,logout,decrypt
 const {ratelimitingOtp} = require("../middleware/rateLimiting")
 const authMiddleware = require("../middleware/authentication-middleware")
 const router = express.Router()
-const timeout =  require("express-timeout-handler");
+// const timeout =  require("express-timeout-handler");
+
 
 otpCache = {};
 const acesstokenpiration = 60; //in minutes
 const refreshtokenpiration = 1; //in days
 
-const timeoutOptions = {
-  timeout: TIMEOUT_REQOTP, // 5 seconds
-  onTimeout: function (req, res) {
-    if (!res.headersSent) {
-      res.status(503).json({
-        success: false,
-        message: "Request timed out. Please try again later.",
-      });
-    }
-  },
-  onDelayedResponse: function (req, method, args, requestTime) {
-    console.warn(`Delayed response after ${requestTime}ms`);
-  },
-};
+// const timeoutOptions = {
+//   timeout: TIMEOUT_REQOTP, // 5 seconds
+//   onTimeout: function (req, res) {
+//     if (!res.headersSent) {
+//       res.status(503).json({
+//         success: false,
+//         message: "Request timed out. Please try again later.",
+//       });
+//     }
+//   },
+//   onDelayedResponse: function (req, method, args, requestTime) {
+//     console.warn(`Delayed response after ${requestTime}ms`);
+//   },
+// };
 
 router.post("/reqotp",reqOtp)
 // ratelimitingOtp() this is a function that returns a middleware thats why we call ratelimitingOtp() 
