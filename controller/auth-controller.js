@@ -93,10 +93,10 @@ const RegisterUser = tryCatch(async (req, res) => {
     throw new AppError("email or username already exist", 404);
   }
 
-  if (!otpCache[userData.email] || !otpCache[userData.email]?.verified) {
-    throw new AppError("Email not verified with OTP", 400);
-  }
-  delete otpCache[userData.email];
+  // if (!otpCache[userData.email] || !otpCache[userData.email]?.verified) {
+  //   throw new AppError("Email not verified with OTP", 400);
+  // }
+  // delete otpCache[userData.email];
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(userData?.password, salt);
   let NewUserData = { ...userData, password: hashedPassword };

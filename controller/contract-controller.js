@@ -38,7 +38,7 @@ const Uploaddoc = tryCatch(async (req, res) => {
   const hash = crypto.createHash("sha256").update(fileBuffer).digest("hex");
   let contractid = uuidv4();
   console.log(req.userInfo,"kk")
-  let NewcontractData = { ...uploaddoc, contractid:contractid,documenthash:hash,signerid:req.userInfo.userId,recipientid:recipientemail._id,documenturl:result.url };
+  let NewcontractData = { ...uploaddoc, contractid:contractid,documenthash:hash,signerid:req.userInfo.userId,recipientid:recipientemail._id,documenturl:result.secure_url };
   // const newlycreatedUser = await User.create(NewUserData);
   const newlycreatedContract = await Contract.create(NewcontractData);
   if (newlycreatedContract) {
@@ -70,23 +70,42 @@ console.log(contractsigner,"ll");
 // const idString = "68f9fa53439d986acacecaf0";
 // const objectId = new mongoose.Types.ObjectId(idString);
  if (contractsigner.signerid._id.equals(user.userId)) {
- 
+   const initials = contractsigner.signerid.lastname[0].toUpperCase() + contractsigner.signerid.firstname[0][0].toUpperCase();
+    console.log(initials,"initials")
     updated = await Contract.findOneAndUpdate(
   { contractid: sign.contractid },
-  { $set: { signerstatus: "signed" ,signerTxonchain:sign.txOnchain,createdat:formattedDate} },
+  { $set: { signerstatus: "signed" ,signerTxonchain:sign.txOnchain,createdat:formattedDate},$addToSet: { participants: initials } },
+  
   { new: true } // returns updated document instead of old one
 );
  }
  const contractrecipient = await Contract.findOne({ contractid: sign.contractid  }).populate("recipientid");
  
  if (contractrecipient.recipientid._id.equals(user.userId)) {
-   console.log("aaa")
+   const initials = contractrecipient.recipientid.lastname[0].toUpperCase() + contractrecipient.recipientid.firstname[0].toUpperCase();
+   
     updated = await Contract.findOneAndUpdate(
   { contractid: sign.contractid },
-  { $set: { recipientstatus: "signed",recipientTxonchain:sign.txOnchain,completedAt:formattedDate,contractcompleted:true} },
+  { $set: { recipientstatus: "signed",recipientTxonchain:sign.txOnchain,completedAt:formattedDate,contractcompleted:true},
+$addToSet: { participants: initials } },
+
   { new: true } // returns updated document instead of old one
 );
  }
+//  updated = await Contract.findOneAndUpdate(
+//   { contractid: sign.contractid },
+//   {
+//     $set: {
+//       recipientstatus: "signed",
+//       recipientTxonchain: sign.txOnchain,
+//       completedAt: formattedDate,
+//       contractcompleted: true,
+//     },
+//     $addToSet: { participants: initials },
+//   },
+//   { new: true } // return the updated document
+// );
+
   console.log(updated)
     if (!updated) {
       return res.status(404).json({
@@ -219,7 +238,7 @@ const getalldocs = tryCatch(async (req, res, next) => {
     { signerid: user.userId },
     { recipientid: user.userId }
   ]
-}).select("documenturl");
+}).select("documenturl contractname");
   if (!contracts) {
     throw new AppError("data not found", 404);
   }

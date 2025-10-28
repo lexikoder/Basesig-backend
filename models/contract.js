@@ -22,6 +22,7 @@ const contractSchema = new mongoose.Schema({
      type:String,
      required:[true,"contractname  required"],
     },
+    participants: [String],
     signerid: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     recipientid:{ type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     contractcompleted:{
@@ -61,8 +62,8 @@ const contractSchema = new mongoose.Schema({
     requestearlyfunduser:{ type: mongoose.Schema.Types.ObjectId, ref: "User" },
     requestearlyfundasset:{
      type:String,
-     enum:["usdt"],
-     default:"usdt"
+     enum:["USDC"],
+     default:"USDC"
      
     },
     requestearlyfundamount:{
