@@ -70,24 +70,32 @@ console.log(contractsigner,"ll");
 // const idString = "68f9fa53439d986acacecaf0";
 // const objectId = new mongoose.Types.ObjectId(idString);
  if (contractsigner.signerid._id.equals(user.userId)) {
-   const initials = contractsigner.signerid.lastname[0].toUpperCase() + contractsigner.signerid.firstname[0][0].toUpperCase();
-    console.log(initials,"initials")
+   const initials = contractsigner.signerid.lastname[0].toUpperCase() + contractsigner.signerid.firstname[0].toUpperCase();
+    console.log(initials,"initialss")
     updated = await Contract.findOneAndUpdate(
-  { contractid: sign.contractid },
-  { $set: { signerstatus: "signed" ,signerTxonchain:sign.txOnchain,createdat:formattedDate},$addToSet: { participants: initials } },
+  // { contractid: sign.contractid },
+  { 
+    contractid: sign.contractid, 
+    "participants.1": { $exists: false }  // means second element doesn’t exist yet
+  },
+  { $set: { signerstatus: "signed" ,signerTxonchain:sign.txOnchain,createdat:formattedDate},$push: { participants: initials } },
   
   { new: true } // returns updated document instead of old one
 );
+
  }
  const contractrecipient = await Contract.findOne({ contractid: sign.contractid  }).populate("recipientid");
  
  if (contractrecipient.recipientid._id.equals(user.userId)) {
    const initials = contractrecipient.recipientid.lastname[0].toUpperCase() + contractrecipient.recipientid.firstname[0].toUpperCase();
-   
+ console.log(initials)
     updated = await Contract.findOneAndUpdate(
-  { contractid: sign.contractid },
-  { $set: { recipientstatus: "signed",recipientTxonchain:sign.txOnchain,completedAt:formattedDate,contractcompleted:true},
-$addToSet: { participants: initials } },
+  // { contractid: sign.contractid },
+  { 
+    contractid: sign.contractid, 
+    "participants.1": { $exists: false }  // means second element doesn’t exist yet
+  },
+  { $set: { recipientstatus: "signed",recipientTxonchain:sign.txOnchain,completedAt:formattedDate,contractcompleted:true},$push: { participants: initials } },
 
   { new: true } // returns updated document instead of old one
 );
